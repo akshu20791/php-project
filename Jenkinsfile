@@ -28,7 +28,8 @@ pipeline {
                 script {
                     def dockerCmd = 'docker run -itd --name My-first-containe21 -p 8081:80 akshu20791/phpproject:v1'
                     sshagent(['sshkeypair']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.20.232 ${dockerCmd}"
+                        //chnage the private ip in below code
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.83.223 ${dockerCmd}"
                     }
                 }
             }
