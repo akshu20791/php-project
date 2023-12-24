@@ -4,7 +4,7 @@ pipeline {
         stage('Build Maven'){
             steps{
                 git url:'https://github.com/akshu20791/php-project/', branch: "master"
-                sh 'mvn clean install'
+              
             }
         }
         stage('Build docker image'){
