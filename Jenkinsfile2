@@ -1,3 +1,5 @@
+// here we are using parameters where in the deployyment will only happen when we approve it 
+
 pipeline {
     agent any
 
