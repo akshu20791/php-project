@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    stages{
+        stage('git cloned'){
+            steps{
+                git url:'https://github.com/SP11223344/php-project/', branch: "master"
+              
+            }
+        }
+        stage('Build docker image'){
+            steps{
+                script{
+                    sh 'docker build -t sonaliapte2812/myphpproject:v1 .'
+                    sh 'docker images'
+                }
+            }
+        }
+          stage('Docker login') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-pwd', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    sh "echo $PASS | docker login -u $USER --password-stdin"
+                    sh 'docker push sonaliapte2812/myphpproject:v1'
+                }
+            }
+        }
+        
+     stage('Deploy') {
+            steps {
+               script {
+                        sh "sudo docker run -itd --name My-first-containe2111 -p 8086:80 sonaliapte2812/myphpproject:v1"
+                    
+                    }
+                }
+            }
+        }
+    }
+}
